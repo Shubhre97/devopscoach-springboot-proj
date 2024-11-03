@@ -5,7 +5,7 @@ pipeline {
     agent any
 
     environment {
-        registry = "654654352254.dkr.ecr.us-east-1.amazonaws.com/my-eks-image-repo"
+        registry = "654654352254.dkr.ecr.ap-south-1.amazonaws.com/my-eks-image-repo"
     }
 
     stages {
@@ -32,8 +32,9 @@ pipeline {
         stage ("Push to ECR") {
             steps {
                 script {
-                    sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 654654352254.dkr.ecr.us-east-1.amazonaws.com"
-                    sh "docker push 654654352254.dkr.ecr.us-east-1.amazonaws.com/my-eks-image-repo:$BUILD_NUMBER"
+                    sh "aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 654654352254.dkr.ecr.ap-south-1.amazonaws.com"
+                    sh "docker tag my-eks-image-repo:latest 654654352254.dkr.ecr.ap-south-1.amazonaws.com/my-eks-image-repo:latest"
+                    sh "docker push 654654352254.dkr.ecr.ap-south-1.amazonaws.com/my-eks-image-repo:$BUILD_NUMBER"
                     
                 }
             }
