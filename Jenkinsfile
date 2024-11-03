@@ -24,6 +24,7 @@ pipeline {
         stage ("Build Image") {
             steps {
                 script {
+                    aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 654654352254.dkr.ecr.us-east-1.amazonaws.com
                     docker.build registry
                     dockerImage.tag("$BUILD_NUMBER")
                 }
